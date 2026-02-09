@@ -121,7 +121,8 @@ Security Group
 - SSH access (22)
 
 Application access (3000)
-- EC2 Instance
+
+EC2 Instance
 
 Ubuntu 22.04
 
