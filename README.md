@@ -60,7 +60,7 @@ flowchart TD
 
 ```
 
-How i did:
+How I did:
 
 Task 1 — Run Application Locally
 
