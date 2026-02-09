@@ -38,13 +38,13 @@ flowchart TD
         subgraph VPC[VPC: 10.0.0.0/16]
             subgraph SUBNET[Public Subnet: 10.0.1.0/24]
                 EC2[EC2 Instance<br/>Ubuntu 22.04<br/>t2.micro<br/>Public IP Enabled]
-                DOCKER[Docker Engine<br/>(Installed via Terraform user_data)]
+                DOCKER[Docker Engine<br/>Installed via Terraform user_data]
                 CONTAINER[Docker Container<br/>8byte-intern-app]
                 APP[Node.js Express App<br/>Listening on Port 3000]
             end
 
             IGW[Internet Gateway]
-            RT[Route Table<br/>0.0.0.0/0 → IGW]
+            RT[Route Table<br/>0.0.0.0/0 -> IGW]
             SG[Security Group<br/>Inbound: 22 (SSH), 3000 (App)]
         end
     end
@@ -59,109 +59,179 @@ flowchart TD
     EC2 --> DOCKER
     DOCKER --> CONTAINER
     CONTAINER --> APP
-
 ```
 
 How i did:
 
 Task 1 — Run Application Locally
+
 Prerequisites
 
 Node.js (LTS recommended)
 
 Steps
+
 Install dependencies:
+
 npm install
+
 Run the application:
+
 node app.js
+
 Verify in browser:
+
 http://localhost:3000
 
 
 
 Task 2 — Dockerize the Application
+
 Prerequisites
 
 Docker Desktop installed and running
+
 Build Docker image
+
 docker build -t 8byte-intern-app .
+
 Run Docker container
+
 docker run -p 3000:3000 8byte-intern-app
+
 Verify in browser:
+
 http://localhost:3000
 
 
 
 Task 3 — Infrastructure Provisioning using Terraform (AWS)
+
 Prerequisites
 
 Terraform installed
+
 AWS credentials configured
+
 EC2 Key Pair created in AWS
+
 Provisioned AWS Resources
+
 Terraform provisions the following resources:
+
 VPC
+
 Public Subnet
+
 Internet Gateway
+
 Route Table and Route Table Association
+
 Security Group
+
 SSH access (22)
+
 Application access (3000)
+
 EC2 Instance
+
 Ubuntu 22.04
-t2.micro
+
+t3.micro
+
 Public IP enabled
+
 Docker installed using Terraform user_data
+
 Terraform Commands
+
 Move into terraform directory:
+
 cd terraform
+
 Initialize:
+
 terraform init
+
 Plan:
+
 terraform plan
+
 Apply:
+
 terraform apply
+
 After successful apply, Terraform outputs:
+
 EC2 Public IP
+
 EC2 Public DNS
 
 
 
 Task 4 — Deploy Application on EC2
+
 SSH into EC2
+
 ssh -i <your-key>.pem ubuntu@<EC2_PUBLIC_IP>
+
 Verify Docker is installed:
+
 docker --version
+
 Install Git:
+
 sudo apt-get update -y
+
 sudo apt-get install git -y
+
 Clone the repository:
+
 git clone <YOUR_GITHUB_REPO_URL>
+
 cd 8byte-intern-assignment
+
 Build Docker image:
+
 docker build -t 8byte-intern-app .
+
 Run Docker container:
+
 docker run -d -p 3000:3000 --name 8byte-app 8byte-intern-app
+
 Verify container is running:
+
 docker ps
+
 Verification (Public URL)
+
 Open in browser:
+
 http://<EC2_PUBLIC_IP>:3000
+
 Expected output:
+
 8byte Intern Assignment Successfully Deployed
 
 
 
 Task 5 — CI/CD using GitHub Actions
-Workflow File Location
-.github/workflows/ci.yml
-What the Workflow Does
-Triggers automatically on push to the main branch
-Checks out the repository code
-Builds the Docker image using the Dockerfile
-Confirms that the Docker build completes successfully
-This provides automated validation that the Docker image remains buildable.
 
+Workflow File Location
+
+.github/workflows/ci.yml
+
+What the Workflow Does
+
+Triggers automatically on push to the main branch
+
+Checks out the repository code
+
+Builds the Docker image using the Dockerfile
+
+Confirms that the Docker build completes successfully
+
+This provides automated validation that the Docker image remains buildable.
 
 Deliverables
 
@@ -196,9 +266,8 @@ The solution is intentionally minimal and aligned with the assignment requiremen
 
 ---
 
-## ✅ 2) APPROACH.md (Copy-Paste)
+##  2) APPROACH.md
 
-```md
 # Approach
 
 ## Goal
@@ -350,19 +419,5 @@ Correct GitHub Actions file structure
 
 ---
 
-# ✅ One last important thing (so you don’t lose marks)
-
-In README, you should also add a line like:
-
-### Live Deployment URL
-
-
-http://<YOUR_EC2_PUBLIC_IP>:3000
-
-
-After you deploy, replace it with real IP.
-
-```
----
 
 If you want, I can also give you a **perfect simple `ci.yml`**, **Dockerfile**, and **Terraform code s
