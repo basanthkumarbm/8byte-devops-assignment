@@ -60,9 +60,9 @@ flowchart TD
 
 ```
 
-How I did:
+## How I did:
 
-Task 1 — Run Application Locally
+# Task 1 — Run Application Locally
 
 Prerequisites
 
@@ -84,9 +84,9 @@ http://localhost:3000
 
 
 
-Task 2 — Dockerize the Application
+# Task 2 — Dockerize the Application
 
-Prerequisites
+Prerequisites:
 
 Docker Desktop installed and running
 
@@ -104,9 +104,9 @@ http://localhost:3000
 
 
 
-Task 3 — Infrastructure Provisioning using Terraform (AWS)
+# Task 3 — Infrastructure Provisioning using Terraform (AWS)
 
-Prerequisites
+Prerequisites:
 
 Terraform installed
 
@@ -168,7 +168,7 @@ EC2 Public DNS
 
 
 
-Task 4 — Deploy Application on EC2
+# Task 4 — Deploy Application on EC2
 
 SSH into EC2
 
@@ -214,7 +214,7 @@ Expected output:
 
 
 
-Task 5 — CI/CD using GitHub Actions
+# Task 5 — CI/CD using GitHub Actions
 
 Workflow File Location
 
@@ -265,9 +265,8 @@ The solution is intentionally minimal and aligned with the assignment requiremen
 
 ---
 
-##  2) APPROACH.md
+###  APPROACH
 
-# Approach
 
 ## Goal
 The goal of this assignment is to deploy a simple Node.js application publicly on AWS using:
@@ -333,7 +332,8 @@ This solution was chosen because it is:
 - Easy to verify using screenshots and public IP access
 - Easy to reproduce and destroy
 
-3) CHALLENGES.md 
+###  CHALLENGES
+
 # Challenges and Resolutions
 
 This document summarizes the technical challenges faced during the assignment and how they were resolved.
@@ -341,17 +341,20 @@ This document summarizes the technical challenges faced during the assignment an
 ---
 
 ## 1) Docker Desktop Setup on Windows
+
 ### Challenge
+
 Docker Desktop requires WSL2 or Hyper-V on Windows, and initial setup may fail if WSL2 is not enabled.
 
 ### Resolution
+
 - Enabled WSL2 (if required)
 - Restarted the system
 - Verified Docker was running using:
   ```bash
   docker --version
-2) Terraform Apply Taking Time for Docker Installation
-Challenge
+  
+2) Terraform Apply Taking Time for Docker Installation Challenge
 
 Docker installation is performed via EC2 user_data, which may take a few minutes after instance creation.
 
@@ -361,10 +364,10 @@ Waited 1–2 minutes after instance provisioning and verified using:
 
 docker --version
 
-3) Application Not Accessible Publicly on Port 3000
-Challenge
+3) Application Not Accessible Publicly on Port 3000 Challenge
 
 The application was not reachable initially using:
+
 http://<EC2_PUBLIC_IP>:3000
 
 Resolution
@@ -374,10 +377,10 @@ Verified Security Group inbound rules:
 SSH (22) open
 
 Custom TCP (3000) open
+
 After confirming inbound rules, the application became accessible.
 
-4) SSH Access Issues from Windows
-Challenge
+4) SSH Access Issues from Windows Challenge
 
 SSH connection failed due to incorrect key file path or wrong EC2 username.
 
@@ -389,8 +392,7 @@ Used:
 
 ssh -i <your-key>.pem ubuntu@<EC2_PUBLIC_IP>
 
-5) GitHub Actions Workflow Not Triggering
-Challenge
+5) GitHub Actions Workflow Not Triggering Challenge
 
 The GitHub Actions workflow did not trigger initially because the workflow file path was incorrect.
 
