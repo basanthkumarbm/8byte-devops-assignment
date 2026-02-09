@@ -1,4 +1,4 @@
-# 8byte DevOps Intern Assignment — Node.js + Docker + Terraform + GitHub Actions (AWS)
+## 8byte DevOps Intern Assignment — Node.js + Docker + Terraform + GitHub Actions (AWS)
 
 ## Project Overview
 This repository contains a simple Node.js (Express) web application containerized using Docker and deployed on AWS EC2.  
