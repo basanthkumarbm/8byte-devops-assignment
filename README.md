@@ -70,17 +70,15 @@ Node.js (LTS recommended)
 
 Steps
 
-Install dependencies:
-
-npm install
+- Install dependencies:
+- npm install
 
 Run the application:
 
-node app.js
+- node app.js
 
 Verify in browser:
-
-http://localhost:3000
+- http://localhost:3000
 
 
 
@@ -91,16 +89,13 @@ Prerequisites:
 Docker Desktop installed and running
 
 Build Docker image
-
-docker build -t 8byte-intern-app .
+- docker build -t 8byte-intern-app .
 
 Run Docker container
-
-docker run -p 3000:3000 8byte-intern-app
+- docker run -p 3000:3000 8byte-intern-app
 
 Verify in browser:
-
-http://localhost:3000
+- http://localhost:3000
 
 
 
@@ -111,28 +106,22 @@ Prerequisites:
 Terraform installed
 
 AWS credentials configured
-
-EC2 Key Pair created in AWS
+- EC2 Key Pair created in AWS
 
 Provisioned AWS Resources
-
-Terraform provisions the following resources:
+- Terraform provisions the following resources:
 
 VPC
-
-Public Subnet
+- Public Subnet
 
 Internet Gateway
-
-Route Table and Route Table Association
+- Route Table and Route Table Association
 
 Security Group
-
-SSH access (22)
+- SSH access (22)
 
 Application access (3000)
-
-EC2 Instance
+- EC2 Instance
 
 Ubuntu 22.04
 
@@ -149,68 +138,54 @@ Move into terraform directory:
 cd terraform
 
 Initialize:
-
-terraform init
+- terraform init
 
 Plan:
-
-terraform plan
+- terraform plan
 
 Apply:
-
-terraform apply
+- terraform apply
 
 After successful apply, Terraform outputs:
 
-EC2 Public IP
-
-EC2 Public DNS
+- EC2 Public IP
+- EC2 Public DNS
 
 
 
 # Task 4 — Deploy Application on EC2
 
 SSH into EC2
-
-ssh -i <your-key>.pem ubuntu@<EC2_PUBLIC_IP>
+- ssh -i <your-key>.pem ubuntu@<EC2_PUBLIC_IP>
 
 Verify Docker is installed:
-
-docker --version
+-docker --version
 
 Install Git:
-
-sudo apt-get update -y
-
-sudo apt-get install git -y
+- sudo apt-get update -y
+- sudo apt-get install git -y
 
 Clone the repository:
-
-git clone <YOUR_GITHUB_REPO_URL>
+- git clone <YOUR_GITHUB_REPO_URL>
 
 cd 8byte-intern-assignment
 
 Build Docker image:
-
-docker build -t 8byte-intern-app .
+- docker build -t 8byte-intern-app .
 
 Run Docker container:
-
-docker run -d -p 3000:3000 --name 8byte-app 8byte-intern-app
+- docker run -d -p 3000:3000 --name 8byte-app 8byte-intern-app
 
 Verify container is running:
-
-docker ps
+- docker ps
 
 Verification (Public URL)
 
 Open in browser:
-
-http://<EC2_PUBLIC_IP>:3000
+- http://<EC2_PUBLIC_IP>:3000
 
 Expected output:
-
-8byte Intern Assignment Successfully Deployed
+- 8byte Intern Assignment Successfully Deployed
 
 
 
@@ -220,48 +195,31 @@ Workflow File Location
 
 .github/workflows/ci.yml
 
-What the Workflow Does
-
-Triggers automatically on push to the main branch
-
-Checks out the repository code
-
-Builds the Docker image using the Dockerfile
-
-Confirms that the Docker build completes successfully
-
-This provides automated validation that the Docker image remains buildable.
+What the Workflow Does 
+- Triggers automatically on push to the main branch
+- Checks out the repository code
+- Builds the Docker image using the Dockerfile
+- Confirms that the Docker build completes successfully
+- This provides automated validation that the Docker image remains buildable.
 
 Deliverables
 
 Public GitHub repository link containing:
-
-Node.js source code
-
-Dockerfile
-
-Terraform configuration
-
-GitHub Actions workflow
-
-Documentation (README.md, APPROACH.md, CHALLENGES.md)
+- Node.js source code
+- Dockerfile
+- Terraform configuration
+- GitHub Actions workflow
 
 Public application URL:
-
-http://<EC2_PUBLIC_IP>:3000
+- http://<EC2_PUBLIC_IP>:3000
 
 Screenshots proving successful deployment and CI pipeline
 
-Notes
+Notes:
+- Security Group explicitly allows inbound port 3000 for public access.
+- Docker is installed automatically using Terraform EC2 user_data.
+- The solution is intentionally minimal and aligned with the assignment requirements.
 
-Security Group explicitly allows inbound port 3000 for public access.
-
-Docker is installed automatically using Terraform EC2 user_data.
-
-The solution is intentionally minimal and aligned with the assignment requirements.
-
-
----
 
 ---
 
@@ -288,8 +246,8 @@ The infrastructure is provisioned using Terraform to ensure:
 - **VPC + Public Subnet:** Provides an isolated network environment with public access.
 - **Internet Gateway + Route Table:** Enables internet access for the public subnet.
 - **Security Group:** Allows:
-  - SSH access on port `22`
-  - Application access on port `3000`
+- **SSH access on port `22`
+- **Application access on port `3000`
 - **EC2 Instance (Ubuntu 22.04, t2.micro):** Hosts the Docker container.
 
 ---
@@ -361,20 +319,17 @@ Docker installation is performed via EC2 user_data, which may take a few minutes
 Resolution
 
 Waited 1–2 minutes after instance provisioning and verified using:
-
-docker --version
+- docker --version
 
 3) Application Not Accessible Publicly on Port 3000 Challenge
 
 The application was not reachable initially using:
-
-http://<EC2_PUBLIC_IP>:3000
+- http://<EC2_PUBLIC_IP>:3000
 
 Resolution
 
 Verified Security Group inbound rules:
-
-SSH (22) open
+- SSH (22) open
 
 Custom TCP (3000) open
 
@@ -389,8 +344,7 @@ Resolution
 Confirmed the correct username is ubuntu for Ubuntu AMIs
 
 Used:
-
-ssh -i <your-key>.pem ubuntu@<EC2_PUBLIC_IP>
+- ssh -i <your-key>.pem ubuntu@<EC2_PUBLIC_IP>
 
 5) GitHub Actions Workflow Not Triggering Challenge
 
@@ -399,8 +353,7 @@ The GitHub Actions workflow did not trigger initially because the workflow file 
 Resolution
 
 Ensured the file was located exactly at:
-
-.github/workflows/ci.yml
+- .github/workflows/ci.yml
 
 
 Then pushed a commit to main to trigger the pipeline.
@@ -408,14 +361,10 @@ Then pushed a commit to main to trigger the pipeline.
 Summary
 
 All issues were resolved by verifying configuration step-by-step:
-
-Terraform outputs
-
-Security group rules
-
-Docker installation status
-
-Correct GitHub Actions file structure
+- Terraform outputs
+- Security group rules
+- Docker installation status
+- Correct GitHub Actions file structure
 
 
 ---
