@@ -34,31 +34,30 @@ Intern Assignment Successfully Deployed
 flowchart TD
     U[User Browser]
 
-    subgraph AWS[AWS - ap-south-2 (Hyderabad)]
-        subgraph VPC[VPC: 10.0.0.0/16]
-            subgraph SUBNET[Public Subnet: 10.0.1.0/24]
-                EC2[EC2 Instance<br/>Ubuntu 22.04<br/>t2.micro<br/>Public IP Enabled]
-                DOCKER[Docker Engine<br/>Installed via Terraform user_data]
-                CONTAINER[Docker Container<br/>8byte-intern-app]
-                APP[Node.js Express App<br/>Listening on Port 3000]
+    subgraph AWS[AWS Region ap-south-2 Hyderabad]
+        subgraph VPC[VPC 10.0.0.0/16]
+            subgraph SUBNET[Public Subnet 10.0.1.0/24]
+                EC2[EC2 Ubuntu 22.04 t2.micro Public IP Enabled]
+                DOCKER[Docker installed via Terraform user_data]
+                CONTAINER[Docker container 8byte-intern-app]
+                APP[Node.js Express App Port 3000]
             end
 
             IGW[Internet Gateway]
-            RT[Route Table<br/>0.0.0.0/0 -> IGW]
-            SG[Security Group<br/>Inbound: 22 (SSH), 3000 (App)]
+            RT[Route Table 0.0.0.0/0 to IGW]
+            SG[Security Group inbound 22 SSH and 3000 App]
         end
     end
 
-    U -->|HTTP :3000| EC2
-    U -->|SSH :22| EC2
+    U -->|HTTP 3000| EC2
+    U -->|SSH 22| EC2
 
     IGW --> RT
     RT --> SUBNET
 
     SG --> EC2
-    EC2 --> DOCKER
-    DOCKER --> CONTAINER
-    CONTAINER --> APP
+    EC2 --> DOCKER --> CONTAINER --> APP
+
 ```
 
 How i did:
